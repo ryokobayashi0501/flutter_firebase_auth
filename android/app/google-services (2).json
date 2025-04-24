@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "979223392484",
+    "project_id": "practiceauth-4fc12",
+    "storage_bucket": "practiceauth-4fc12.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979223392484:android:99410ff01f19faf68e3cf1",
+        "android_client_info": {
+          "package_name": "com.example.flutter_simple_user_auth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkihZsmpkt_oIw2yjjPbzljxvxjaYCfLI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
