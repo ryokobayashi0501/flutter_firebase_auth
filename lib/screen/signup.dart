@@ -16,7 +16,7 @@ class _SignupState extends State<Signup> {
 
   bool _obscurePassword = true;
   bool rememberPassword = true;
-  bool agreePersonalData = true;
+ 
   final _formSignUpKey = GlobalKey<FormState>();
 
   registration() async {
