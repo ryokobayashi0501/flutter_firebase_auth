@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_user_auth/screen/home.dart';
+import 'package:flutter_simple_user_auth/services/auth.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -16,25 +17,33 @@ class _SignupState extends State<Signup> {
   bool _obscurePassword = true;
   bool rememberPassword = true;
   bool agreePersonalData = true;
-  final _formSignInKey = GlobalKey<FormState>();
+  final _formSignUpKey = GlobalKey<FormState>();
 
   registration() async {
     if (password != null && namecontroller.text != "" && emailcontroller.text != "") {
       try {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar
+        (
           content: Text("Registered Successfully", style: TextStyle(fontSize: 20.0)),
         ));
+
         Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        if (e.code == 'weak-password') 
+        {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar
+          (
             backgroundColor: Colors.orangeAccent,
             content: Text("Password Provided is too Weak", style: TextStyle(fontSize: 18.0)),
           ));
+          
         } else if (e.code == "email-already-in-use") {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar
+          (
             backgroundColor: Colors.orangeAccent,
             content: Text("Account Already exists", style: TextStyle(fontSize: 18.0)),
           ));
@@ -51,7 +60,7 @@ class _SignupState extends State<Signup> {
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Form(
-            key: _formSignInKey,
+            key: _formSignUpKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -85,7 +94,9 @@ class _SignupState extends State<Signup> {
                     }
                     return null;
                   },
-                  controller: emailcontroller, //Add this
+
+                  controller: emailcontroller, 
+                  //Add this
                   decoration: InputDecoration(
                     label: const Text('Email'),
                     hintText: 'Enter Email',
@@ -151,7 +162,7 @@ class _SignupState extends State<Signup> {
             
                 ElevatedButton(
                   onPressed: () {
-                    if (_formSignInKey.currentState!.validate() && rememberPassword) {
+                    if (_formSignUpKey.currentState!.validate() && rememberPassword) {
                       setState(() {
                         email = emailcontroller.text;
                         name = namecontroller.text;
@@ -176,7 +187,7 @@ class _SignupState extends State<Signup> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        // Google login process
+                        AuthMethods().signInWithGoogle(context);
                       },
                       child: Image.asset(
                         'assets/logo_google_g_icon.png',

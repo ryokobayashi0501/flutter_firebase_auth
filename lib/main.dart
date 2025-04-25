@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => Login(),
         '/signup': (context) => Signup(),
         '/home': (context) => Home(),
-        '/forgot_password': (context) => forget_password(),
+        '/forgot_password': (context) => ForgotPassword(),
       },
     );
   }
