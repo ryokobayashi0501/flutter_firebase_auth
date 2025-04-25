@@ -20,7 +20,7 @@ class _SignupState extends State<Signup> {
   final _formSignUpKey = GlobalKey<FormState>();
 
   registration() async {
-    if (password != null && namecontroller.text != "" && emailcontroller.text != "") {
+    if (_formSignUpKey.currentState!.validate()) {
       try {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);

@@ -20,36 +20,38 @@ class _LoginState extends State<Login> {
 
   userLogin() async //That will be called when the user clicks the "Login" button
   {
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password); //This is the code that performs the login with Firebase Authentication.
+    if (_formSignInKey.currentState!.validate()){
+      try {
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password); //This is the code that performs the login with Firebase Authentication.
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar( //Display a message in a pop-up at the bottom of the screen
-          content: Text(
-            "Log in Successfully",
-            style: TextStyle(fontSize: 20.0),
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar( //Display a message in a pop-up at the bottom of the screen
+            content: Text(
+              "Log in Successfully",
+              style: TextStyle(fontSize: 20.0),
+            ),
           ),
-        ),
-      );
+        );
 
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Home()),
-      );
-    } on FirebaseAuthException catch (e) {
-      // Always show the same message when it fails
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Email address or password is incorrect", // Hide details from users
-            style: TextStyle(fontSize: 18.0),
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+      } on FirebaseAuthException catch (e) {
+        // Always show the same message when it fails
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "Email address or password is incorrect", // Hide details from users
+              style: TextStyle(fontSize: 18.0),
+            ),
           ),
-        ),
-      );
+        );
 
-      // For more details, see the debug log for developers.
-      debugPrint('FirebaseAuthException: ${e.code} / ${e.message}');
+        // For more details, see the debug log for developers.
+        debugPrint('FirebaseAuthException: ${e.code} / ${e.message}');
+      }
     }
   }
 
